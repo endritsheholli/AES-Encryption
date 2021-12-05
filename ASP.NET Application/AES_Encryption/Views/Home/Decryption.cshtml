@@ -1,0 +1,91 @@
+﻿@model AES_Encryption.Models.AESModel
+
+@{
+    ViewBag.Title = "Decryption";
+}
+<style>
+    .jumbo {
+        background-image: url(https://assets.kpmg/content/dam/kpmg/xx/images/2019/10/glass-texture-against-blue-background.jpg/jcr:content/renditions/cq5dam.web.1082.378.jpg);
+        background-size: cover;
+        color: white;
+        height: 46px;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="jumbo">
+        <h1 class="text-center">@ViewBag.Title</h1>
+    </div> <br/>
+    <form action="Decryption" method="post">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="ciphertext">Ciphertext</label>
+                    <textarea class="form-control" id="ciphertext" name="ciphertext" aria-describedby="cipherError" rows="3">
+@if (Model != null && @Model.ciphertext != "" && @Model.plaintext == null)
+{
+    @Model.ciphertext
+}</textarea>
+                    <small id="cipherError" style="color:darkred">
+                        @if (Model != null)
+                        {
+                            @Model.cipherError
+                        }
+                    </small>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                @if (Model != null && @Model.plaintext != null)
+                {
+                    <label for="plaintext">Plaintext</label>
+                    <h5 id="plaintext">
+                        @Model.plaintext
+                    </h5>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="key">Key</label>
+                    <input type="password" name="key" class="form-control" id="key"  aria-describedby="keyError"
+                           value="@if (Model != null && Model.key != "" && Model.plaintext == null) {
+                                @Model.key}"/>
+                    <small id="keyError" style="color:darkred">
+                        @if (Model != null && (@Model.keyError != null || @Model.keyError != ""))
+                        {
+                            @Model.keyError
+                        }
+                    </small>
+                </div>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="iv">IV</label>
+                    <input type="password" class="form-control" name="iv" id="iv" aria-describedby="ivError">
+                    <small id="ivError" style="color:darkred">
+                        @if (Model != null && (@Model.ivError != null || @Model.ivError != ""))
+                        {
+                            @Model.ivError
+                        }
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary" aria-describedby="error">Decrypt</button>
+                <br/>
+                <small id="error" style="color:darkred">
+                    @if (Model != null && (@Model.error != null || @Model.error != ""))
+                    {
+                        @Model.error
+                    }
+                </small>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+    </form>
+</div>

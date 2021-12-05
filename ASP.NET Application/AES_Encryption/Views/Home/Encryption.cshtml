@@ -1,0 +1,156 @@
+﻿@model AES_Encryption.Models.AESModel
+
+@{
+    ViewBag.Title = "Encryption";
+}
+<style>
+    #keyChecked, #ivChecked{
+        display:none;
+    }
+
+    .jumbo {
+        background-image: url(https://assets.kpmg/content/dam/kpmg/xx/images/2019/10/glass-texture-against-blue-background.jpg/jcr:content/renditions/cq5dam.web.1082.378.jpg);
+        background-size: cover;
+        color: white;
+        height:46px;
+        border-radius:10px;
+    }
+   
+</style>
+<div class="container-fluid">
+    <div class="jumbo">
+        <h1 class="text-center">@ViewBag.Title</h1>
+    </div> <br/>
+    <form action="Encryption" method="post">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="plaintext">Plaintext</label>
+                    <textarea class="form-control" id="plaintext" name="plaintext" rows="3" aria-describedby="plainError">
+</textarea>
+                    <small id="plainError" style="color:darkred">
+                        @if (Model != null)
+                        {
+                            @Model.plainError
+                        }
+                    </small>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                @if (Model != null && @Model.ciphertext != null)
+                {
+                    <label for="ciphertext">Ciphertext</label>
+                    <h5 id="ciphertext" style="word-wrap:break-word;">
+                        @Model.ciphertext
+                    </h5>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-check">
+                    <small id="keyHelp" class="form-text text-muted">
+                        Entering your own key is safer
+                    </small><br />
+                    <input class="form-check-input" type="checkbox" value="" id="checkKey" onclick="checkFunction('checkKey', 'keyChecked')">
+                    <label class="form-check-label" for="checkKey">
+                        Add key
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" id="keyChecked">
+                    <label for="key">Key</label>
+                    <input type="password" name="key" class="form-control" id="key" aria-describedby="ivHelp">
+
+                    <div class="form-check">
+                        <br />
+                        <small id="ivHelp" class="form-text text-muted">Entering your own IV is safer</small><br />
+                        <input class="form-check-input" type="checkbox" value="" id="checkIV" onclick="checkFunction('checkIV', 'ivChecked')">
+                        <label class="form-check-label" for="checkIV">
+                            Add IV
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-8">
+                @if (Model != null && Model.key != null)
+                {
+                    <label>Key</label>
+                    <h5 id="keyText" style="word-wrap:break-word;">
+                        @Model.key
+                    </h5>
+                }
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" id="ivChecked">
+                    <label for="iv">IV</label>
+                    <input type="password" class="form-control" name="iv" id="iv" />
+                </div>
+                <button type="submit" class="btn btn-primary">Encrypt</button>
+            </div>
+            <div class="col-sm-8">
+                @if (Model != null && Model.iv != null)
+                {
+                    <label>IV</label>
+                    <h5 id="ivText" style="word-wrap:break-word;">
+                        @Model.iv
+                    </h5>
+
+                    <button type="button" class="btn btn-info" onclick="saveKeyAndIV()">Export key and IV</button>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function checkFunction(checkID, hideDivID) {
+        var checkBox = document.getElementById(checkID);
+        var group = document.getElementById(hideDivID)
+        if (checkBox.checked == true) {
+            group.style.display = "block";
+        } else {
+            group.style.display = "none";
+            document.getElementById("checkIV").checked = false;
+            document.getElementById("ivChecked").style.display = "none";
+        }
+    }
+
+    let saveKeyAndIV = () => {
+
+        const key = (document.getElementById("keyText").textContent).trim();
+        const iv = (document.getElementById("ivText").textContent).trim();
+
+        let data =
+            'Key: ' + key + ' \n\n' +
+            'IV: ' + iv;
+
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'keyAndIV.txt';	   
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click();
+
+    }
+</script>

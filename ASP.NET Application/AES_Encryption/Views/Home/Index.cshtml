@@ -1,0 +1,462 @@
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .vertical-nav {
+        min-width: 17rem;
+        width: 17rem;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-left: 100px;
+        margin-top: 50px;
+        padding: 20px;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s;
+        background-color: #563D7C;
+        color: white;
+    }
+
+    .nav-link {
+        color: gray;
+        font-weight: bold;
+    }
+
+    .timeline {
+        position: relative;
+        width: 660px;
+        margin: 0 auto;
+        margin-top: 20px;
+        padding: 1em 0;
+        list-style-type: none;
+    }
+
+        .timeline:before {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            content: ' ';
+            display: block;
+            width: 6px;
+            height: 100%;
+            margin-left: -3px;
+            background: rgb(155, 30, 54);
+            background: linear-gradient(to bottom, #563D7C 0%, #563D7C 8%, #563D7C 92%, #563D7C 100%);
+            z-index: 5;
+        }
+
+        .timeline li {
+            padding: 1em 0;
+        }
+
+            .timeline li:after {
+                content: "";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden;
+            }
+
+    .direction-l {
+        position: relative;
+        width: 300px;
+        float: left;
+        text-align: right;
+    }
+
+    .direction-r {
+        position: relative;
+        width: 300px;
+        float: right;
+    }
+
+    .flag-wrapper {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .flag {
+        position: relative;
+        display: inline;
+        background: rgb(248, 248, 248);
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .direction-l .flag {
+        box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
+    }
+
+    .direction-r .flag {
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
+    }
+
+        .direction-l .flag:before,
+        .direction-r .flag:before {
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            content: ' ';
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin-top: -10px;
+            background: #fff;
+            border-radius: 10px;
+            border: 4px solid #563D7C;
+            z-index: 10;
+        }
+
+        .direction-r .flag:before {
+            left: -40px;
+        }
+
+    .direction-l .flag:after {
+        content: "";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        height: 0;
+        width: 0;
+        margin-top: -8px;
+        border: solid transparent;
+        border-left-color: rgb(248, 248, 248);
+        border-width: 8px;
+        pointer-events: none;
+    }
+
+    .direction-r .flag:after {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        height: 0;
+        width: 0;
+        margin-top: -8px;
+        border: solid transparent;
+        border-right-color: rgb(248, 248, 248);
+        border-width: 8px;
+        pointer-events: none;
+    }
+
+    .time-wrapper {
+        display: inline;
+        line-height: 1em;
+        font-size: 0.8em;
+        color: white;
+        vertical-align: middle;
+    }
+
+    .direction-l .time-wrapper {
+        float: left;
+    }
+
+    .direction-r .time-wrapper {
+        float: right;
+    }
+
+    .time {
+        display: inline-block;
+        padding: 4px 6px;
+        background: #563D7C;
+    }
+
+    .desc {
+        margin: 1em 0.75em 0 0;
+        color: black;
+        font-size: 0.77777em;
+        font-style: italic;
+        line-height: 1.5em;
+    }
+
+    .direction-r .desc {
+        margin: 1em 0 0 0.75em;
+    }
+
+    .wall {
+        width: 100%;
+        height: 20vh;
+        border-radius: 5px;
+    }
+
+    .jumbo {
+        background-image: url(https://assets.kpmg/content/dam/kpmg/xx/images/2019/10/glass-texture-against-blue-background.jpg/jcr:content/renditions/cq5dam.web.1082.378.jpg);
+        background-size: cover;
+        color: white;
+    }
+
+    .jumbo2 {
+        background-color: #563D7C;
+        color: white;
+    }
+
+    .active{
+        background-color: white;
+    }
+        .active a {
+            color: steelblue;
+        }
+</style>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="vertical-nav navbar bg-white">
+                <ul class="nav flex-column bg-white mb-0" id="navigation">
+                    <p class="font-weight-bold text-uppercase px-3 small pb-4 mb-0">Theory</p>
+                    <li class="nav-item">
+                        <a href="#history" class="nav-link">
+                            History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#howItWorks" class="nav-link">
+                            How it works
+                        </a>
+                    </li>
+                    <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Development</p>
+                    <li class="nav-item">
+                        <a href="#classes" class="nav-link">
+                            C# Classes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#project" class="nav-link">
+                            Our project
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-10">
+            <div class="jumbotron jumbo">
+                <h1>AES Encryption</h1>
+                <p class="lead">Development of AES text encryption program in ASP.NET.</p>
+                <p><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" class="btn btn-primary btn-lg" target="_blank">Learn more &raquo;</a></p>
+            </div>
+
+            <h2 class="text-center" id="history">History</h2>
+            <ul class="timeline">
+                <li>
+                    <div class="direction-r">
+                        <div class="flag-wrapper">
+                            <span class="flag">Advances Encryption Standard</span>
+                            <span class="time-wrapper"><span class="time">2001</span></span>
+                        </div>
+                        <div class="desc">
+                            In the early 1990s, NIST, which is the present incarnation of NBS, issued
+                            a call for crypto proposals for what would become the Advanced Encryption
+                            Standard, or AES. The AES competition was conducted in a completely open manner and,
+                            unlike the DES competition, the NSA was openly involved as one of the
+                            judges.
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="direction-l">
+                        <div class="flag-wrapper">
+                            <span class="flag">Triple DES</span>
+                            <span class="time-wrapper"><span class="time">October 1999</span></span>
+                        </div>
+                        <div class="desc">
+                            Triple DES is a block cipher created from the Data Encryption Standard (DES) cipher by using it three times.
+                            Triple DES is also known as TDES or, more standard, TDEA (Triple Data Encryption Algorithm).
+                            When it was discovered that a 56-bit key of DES is not enough to protect from brute force attacks,
+                            TDES was chosen as a simple way to enlarge the key space without a need to switch to a new algorithm.
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="direction-r">
+                        <div class="flag-wrapper">
+                            <span class="flag">DES Broken Key</span>
+                            <span class="time-wrapper"><span class="time">January 1999</span></span>
+                        </div>
+                        <div class="desc">
+                            distributed.net and the Electronic Frontier Foundation collaborated to publicly break
+                            a DES key in 22 hours and 15 minutes (see chronology).
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="direction-l">
+                        <div class="flag-wrapper">
+                            <span class="flag">Modified DES version</span>
+                            <span class="time-wrapper"><span class="time">1976-1977</span></span>
+                        </div>
+                        <div class="desc">
+                            After consultation with the National Security Agency (NSA), the National Bureau of Standards (NBS)
+                            selected a slightly modified version (strengthened against differential cryptanalysis, but
+                            weakened against brute-force attacks), which was published as an official Federal
+                            Information Processing Standard (FIPS) for the United States in 1977.
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="direction-r">
+                        <div class="flag-wrapper">
+                            <span class="flag">Data Encryption Standard</span>
+                            <span class="time-wrapper"><span class="time">1970'</span></span>
+                        </div>
+                        <div class="desc">
+                            The Data Encryption Standard, affectionately known as DES, was developed
+                            way back in the computing dark ages of the 1970s. The design is based on the
+                            so-called Lucifer cipher, a Feistel cipher developed by a team at IBM and was
+                            submitted to the National Bureau of Standards (NBS) following the agency's invitation
+                            to propose a candidate for the protection of sensitive, unclassified electronic government data.
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <h2 class="text-center" id="howItWorks">How it works</h2>
+            <p>
+                Like DES, the AES is an iterated block cipher. Unlike DES, the AES
+                algorithm is not a Feistel cipher. The major implication of this fact is that in
+                order to decrypt, the AES operations must be invertible. Also unlike DES, the
+                AES algorithm has a highly mathematical structure. We'll only give a quick
+                overview of the algorithm large volumes of information on all aspects of
+                AES are readily available and we'll largely ignore the elegant mathematical
+                structure. In any case, it is a safe bet that no crypto algorithm in history
+                has received as much scrutiny in as short of a period of time as the AES.
+                Some of the pertinent facts of AES are as follows:
+            </p>
+            <ul>
+                <li>The block size is 128 bits.</li>
+                <li>Three key lengths are available: 128, 192, or 256 bits.</li>
+                <li>The number of rounds varies from 10 to 14, depending on the key length.</li>
+                <li>
+                    Each round consists of four functions, in three layers the functions are
+                    listed below, with the layer in parentheses.
+                    <ol>
+                        <li>ByteSub (nonlinear layer)</li>
+                        <li>ShiftRow (linear mixing layer)</li>
+                        <li>MixColumn (nonlinear layer)</li>
+                        <li>AddRoundKey (key addition layer)</li>
+                    </ol>
+                </li>
+            </ul>
+            <p>
+                For ease of description, the block and cipher key are often represented as an array of columns where each
+                array has 4 rows and each column represents a single byte (8 bits). The number of columns in an array representing
+                the state or cipher key, then, can be calculated as the block or key length divided by 32 (32 bits = 4 bytes).
+                An array representing a State will have Nb columns, where Nb values of 4, 6, and 8 correspond to a 128, 192,
+                and 256-bit block, respectively. Similarly, an array representing a Cipher Key will have Nk columns, where Nk values
+                of 4, 6, and 8 correspond to a 128, 192, and 256 - bit key, respectively.
+            </p>
+            <p>The AES/Rijndael cipher itself has three operational stages:</p>
+            <ul>
+                <li>AddRound Key transformation</li>
+                <li>
+                    Nr 1 Rounds comprising:
+                    <ul>
+                        <li>SubBytes transformation</li>
+                        <li>ShiftRows transformation</li>
+                        <li>MixColumns transformation</li>
+                        <li>AddRoundKey transformation</li>
+                    </ul>
+                </li>
+                <li>
+                    A final Round comprising:
+                    <ul>
+                        <li>SubBytes transformation</li>
+                        <li>ShiftRows transformation</li>
+                        <li>AddRoundKey transformation</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="jumbotron jumbo">
+                <h2 class="text-center">DEVELOPMENT</h2>
+            </div>
+
+            <h2 class="text-center" id="classes">C# Classes</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Aes Class</h2>
+                    <p>
+                        Represents the abstract base class from which all implementations of the Advanced Encryption Standard (AES)
+                        must inherit.
+                    </p>
+                    <p><a class="btn btn-default" href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-5.0" target="_blank">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>HashAlgorithm Class</h2>
+                    <p>Represents the base class from which all implementations of cryptographic hash algorithms must derive.</p>
+                    <p><a class="btn btn-default" href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm?view=net-5.0" target="_blank">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>CryptoStream Class</h2>
+                    <p>Defines a stream that links data streams to cryptographic transformations.</p>
+                    <p><a class="btn btn-default" href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.cryptostream?view=net-5.0" target="_blank">Learn more &raquo;</a></p>
+                </div>
+            </div>
+
+            <h2 class="text-center" id="project">Our project</h2>
+            <p>
+                AES (Advanced Encryption Standard) encryption algorithm is implemented in this application. The two main functions
+                that have been developed are text encryption and decryption.
+            </p>
+            <div class="jumbotron jumbo2">
+                <p>Encryption has three possibilities:</p>
+                <ol>
+                    <li>
+                        Only plaintext is given to be encrypted - In this case an encryption key and an initialization vector are generated  
+                        by default. Key which is used in encryption is generated as SHA-256 hash of given key and iv is generated as MD5 
+                        hash of given iv. The given key and IV are shown to the user.
+                    </li>
+                    <li>
+                        Plaintext and encryption key are given - Key SHA-256 hash is generated so that for any type of input the key 
+                        used in the algorithm has a fixed length acceptable for AES. An initialization vector is generated and its MD5 
+                        hash is attached to the encryption function. The default IV is shown to the user.
+                    </li>
+                    <li>
+                        Plaintext, key and initialization vector are given - Key SHA-256 hash and IV MD5 hash are generated so that 
+                        for any key and IV input are used their acceptable lengths for AES.
+                    </li>
+                </ol>
+                <span>It is also worth noting to mention that after successful encryption you can export used key and IV as text file.</span>
+            </div>
+            <div class="jumbotron jumbo2">
+                <p>Decryption can have three cases:</p>
+                <ol>
+                    <li>
+                        Ciphertext, key and initialization vector are given
+                        <ul>
+                            <li>
+                                If the key and the initialization vector are the same as those used to encrypt the corresponding text,
+                                the decryption is performed successfully.
+                            </li>
+                            <li>
+                                If the key or the initialization vector, or both are not the same as those used to encrypt the corresponding
+                                text, decryption cannot be performed.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Ciphertext and key are given - In the absence of the initialization vector decryption can not be performed.</li>
+                    <li>Only ciphertext is given - In the absence of the key and the initialization vector decryption can not be performed.</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    var navigation = document.getElementById("navigation");
+    var links = navigation.getElementsByClassName("nav-item");
+    for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace(" active", "");
+            }
+            this.className += " active";
+        });
+    }
+</script>
